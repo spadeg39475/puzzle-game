@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import Nav from './Nav';
 import Game from './Game';
+import Ranking from './Ranking';
 
 
 class App extends React.Component{
@@ -15,10 +16,11 @@ class App extends React.Component{
             <React.Fragment>
             <BrowserRouter>
                 <Nav />
-                <Route path="/" exact component={Game}  />
+                
                 <div className='main'>
                     <div className='view'>
-                        <Game />
+                      <Route path="/" exact component={Game}  />
+                      <Route path="/ranking"  component={Ranking} />
                     </div>
                 </div>
             </BrowserRouter>

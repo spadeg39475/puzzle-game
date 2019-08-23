@@ -6,6 +6,8 @@ class Game extends React.Component{
     state ={
         text: '',
         stepCount: 0,
+        isStart: false,
+        isFinish: false,
         b: [1,2,3,4,5,6,7,8,0],
 
         canGo: [ [2,4],
@@ -76,16 +78,14 @@ class Game extends React.Component{
             document.getElementById("b" + id).style.top=this.state.position[target-1][1] + "px";
         }
 
-        // let isFinish = false;
-        // for(let k=1; k<9; k++){
-        //     if(this.state.b[k-1] != k){
-        //         isFinish =false;
-        //         break;
-        //     }else{
-        //         isFinish = true;
-
-        //     }
-        // }
+        for(let k=1; k<9; k++){
+            if(this.state.b[k-1] != k){
+                this.setState({'isFinish': false});
+                break;
+            }else{
+                this.setState({'isFinish': true});
+            }
+        }
     }    
 
     whereCanGo = (i) =>{
@@ -120,8 +120,9 @@ class Game extends React.Component{
         if(this.state.text===''){
             alert('Please enter your name');
         }else{
+            this.setState({'isStart': true});
             let userName = this.state.text;
-            localStorage.setItem('userName', userName);
+            localStorage.setItem('userName', userName)
 
             this.setState({'stepCount': 0 });
 
@@ -137,21 +138,29 @@ class Game extends React.Component{
     }
 
     render(){
-    
-        console.log(this.state);
-        let isFinish = false;
-        for(let k=1; k<9; k++){
-            if(this.state.b[k-1] != k){
-                isFinish =false;
-                break;
-            }else{
-                isFinish = true;
-            }
-        }
+        
+        
         // this.setState({'isFinish': isFinish});
-        if(isFinish === true){
+        if(this.state.isFinish === true && this.state.isStart === true){
             console.log('pass');
-            localStorage.setItem('ranking', this.state.stepCount);
+            localStorage.setItem('stepCount', this.state.stepCount);
+            // let rankinglist =JSON.parse(localStorage.getItem('RankingList'));
+            let user =this.state.text;
+            let count = this.state.stepCount;
+
+            if(localStorage.RankingList){
+                let rankingList = JSON.parse(localStorage.getItem('RankingList'));
+                console.log(rankingList);
+                rankingList.push({user: user, stepCount:count});
+                localStorage.setItem('RankingList',JSON.stringify(rankingList));
+            }else{
+                let rankingList =[{
+                    user: user,
+                    stepCount: count
+            }]
+            localStorage.setItem('RankingList',JSON.stringify(rankingList));
+            }
+            
         }
         
         return(
