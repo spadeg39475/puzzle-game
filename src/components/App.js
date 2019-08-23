@@ -1,6 +1,7 @@
 import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+
 import Nav from './Nav';
-import Enter from './Enter';
 import Game from './Game';
 
 
@@ -9,18 +10,19 @@ class App extends React.Component{
        
     }
 
-    
-
     render(){
         return(
             <React.Fragment>
+            <BrowserRouter>
                 <Nav />
+                <Route path="/" exact component={Game}  />
                 <div className='main'>
                     <div className='view'>
-                        <Enter />
                         <Game />
                     </div>
                 </div>
+            </BrowserRouter>
+
             </React.Fragment>
         )
     }

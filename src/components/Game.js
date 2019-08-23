@@ -4,6 +4,8 @@ import React from 'react';
 
 class Game extends React.Component{
     state ={
+        text: '',
+        stepCount: 0,
         b: [1,2,3,4,5,6,7,8,0],
 
         canGo: [ [2,4],
@@ -29,33 +31,20 @@ class Game extends React.Component{
                 ]
     }
 
-    // initState = ()=>{
-    //     let  position = new Array();
-    //     position[0] = [0,0];
-    //     position[1] = [100,0];
-    //     position[2] = [200,0];
-    //     position[3] = [0,100];
-    //     position[4] = [100,100];
-    //     position[5] = [200,100];
-    //     position[6] = [0,200];
-    //     position[7] = [100,200];
-    //     position[8] = [200,200];  
-    //     this.setState({'position': position});
+    handleInputChange = (e) =>{
+        this.setState({
+            text: e.target.value
+        })
+    }
 
-    //     let canGo = new Array();
-    //     canGo[0] = [2,4];
-    //     canGo[1] = [1,3,5];
-    //     canGo[2] = [2,6];
-    //     canGo[3] = [1,5,7];
-    //     canGo[4] = [2,4,6,8];
-    //     canGo[5] = [3,5,9];
-    //     canGo[6] = [4,8];
-    //     canGo[7] = [5,7,9];
-    //     canGo[8] = [6,8];
-    //     this.setState({'canGo': canGo});
-    // }
+    handleItemSubmit= (e) => {
+        e.preventDefault();
+        let userName = this.state.text;
+        localStorage.setItem('userName', userName);
+    }
 
     move = (id) =>{
+        
         let i=1;
         for( i; i<10; i++){
             if(this.state.b[i-1] == id){
@@ -78,6 +67,10 @@ class Game extends React.Component{
                 }
             })
             this.setState({'b': newList});
+
+            let count = this.state.stepCount;
+             count=count+1;
+            this.setState({'stepCount': count});
             
             document.getElementById("b" + id).style.left=this.state.position[target-1][0] + "px";
             document.getElementById("b" + id).style.top=this.state.position[target-1][1] + "px";
@@ -90,7 +83,7 @@ class Game extends React.Component{
         //         break;
         //     }else{
         //         isFinish = true;
-        //         alert('Congratulation!');
+
         //     }
         // }
     }    
@@ -118,50 +111,55 @@ class Game extends React.Component{
     }
 
 
-    random = ()=> {
-        for(let i=8; i>1; i--){
-            // let to =parseInt(Math.random()*(i+1)) ;
-            let to = parseInt(Math.random()*(i-1)+1);
-            console.log('random'+to);
-            console.log('i=' +i);
-            if(this.state.b[i-1] !== 0){
-                document.getElementById("b" + this.state.b[i-1]).style.left=this.state.position[to-1][0] + "px";
-                document.getElementById("b" + this.state.b[i-1]).style.top=this.state.position[to-1][1] + "px";
+    randomsort = (a,b)=> {
+
+        return Math.random() >.5? -1: 1;
+    }
+
+    random = ()=>{
+        if(this.state.text===''){
+            alert('Please enter your name');
+        }else{
+            let userName = this.state.text;
+            localStorage.setItem('userName', userName);
+
+            this.setState({'stepCount': 0 });
+
+            let random = this.state.b.sort(this.randomsort);
+            // console.log(random);
+            this.setState({'b': random});
+
+            for(let i=0 ; i<9; i++) {
+                document.getElementById("b" + this.state.b[i]).style.left=this.state.position[i][0] + "px";
+                document.getElementById("b" + this.state.b[i]).style.top=this.state.position[i][1] + "px";
             }
-            if(this.state.b[to-1] !== 0){
-                document.getElementById("b" + this.state.b[to-1]).style.left=this.state.position[i-1][0] + "px";
-                document.getElementById("b" + this.state.b[to-1]).style.top=this.state.position[i-1][1] + "px";
-            }
-            let temp = this.state.b.map((el,index)=>{
-                if(index === to-1){
-                    return this.state.b[i-1];
-                }else if (index === i-1){
-                    return this.state.b[to-1];
-                }else{
-                    return el;
-                }
-            })
-            console.log('temp='+temp);
-            this.setState({'b': temp});
         }
     }
 
     render(){
-        // window.addEventListener('DOMContentLoaded', this.initState)
-        console.log(this.state.b);
-        let isFinish = true;
+    
+        console.log(this.state);
+        let isFinish = false;
         for(let k=1; k<9; k++){
             if(this.state.b[k-1] != k){
                 isFinish =false;
                 break;
+            }else{
+                isFinish = true;
             }
         }
+        // this.setState({'isFinish': isFinish});
         if(isFinish === true){
             console.log('pass');
+            localStorage.setItem('ranking', this.state.stepCount);
         }
         
         return(
             <React.Fragment>
+            <form onSubmit={this.handleItemSubmit}>
+                <input className='inputName' type="text" placeholder="Please enter your name" onChange={this.handleInputChange} value={this.state.text}></input>
+            </form>
+            <div className='stepCount'>Step count: <span id='stepCount'>{this.state.stepCount}</span></div>
             <div className='container'>
                 <div className='block' id='b1' onClick={()=>this.move(1)}>1</div>
                 <div className='block' id='b2' onClick={()=>this.move(2)}>2</div>
@@ -171,9 +169,9 @@ class Game extends React.Component{
                 <div className='block' id='b6' onClick={()=>this.move(6)}>6</div>
                 <div className='block' id='b7' onClick={()=>this.move(7)}>7</div>
                 <div className='block' id='b8' onClick={()=>this.move(8)}>8</div>
-                {/* <div className='block' id='b9'>9</div> */}
+                <div className='block' id='b0'></div>
             </div>
-            <button onClick={this.random}>click</button>
+            <button className='start' onClick={this.random}>Game Start !</button>
             </React.Fragment>
         )
     }
