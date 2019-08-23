@@ -1,0 +1,76 @@
+
+*{
+    box-sizing: border-box;
+}
+.nav{
+    display: flex;width:100%;height:40px;background-color: rgb(202, 200, 198);
+    align-items: center;
+}
+a{
+    width:50%; text-decoration: none; color: #3f3f3f;
+}
+.nav .game,
+.nav .ranking{
+    width:100%;text-align: center; font-size: 24px;cursor: pointer;
+}
+.nav .game{
+    border-right: 1px solid #3f3f3f;
+}
+
+
+.main{
+    width:100%;padding-top: 30px; min-height: 700px;
+}
+
+.view{
+    width:80%;margin: 0 auto;text-align: center;
+}
+.inputName{
+    display: block; margin: 20px auto;
+}
+.stepCount{
+    text-align: center;margin: 20px; font-size: 20px;
+}
+#stepCount{
+    width:30px;
+}
+
+.container{
+    width: 300px;height: 300px;border-radius: 5px;display: inline-block;background-color: #ffe171;
+    box-shadow: 0 0 10px #ffe171; position: relative;
+}
+.block{
+    width:99px; height:99px; box-shadow: 1px 1px 2px #777;background-color: #20a6fa;
+    color: white;text-align: center; font-size: 40px; line-height: 99px;
+    cursor: pointer; transition: 0.3s; position: absolute;
+}
+#b1{
+    left: 0px;
+}
+#b2{
+    left: 100px;
+}
+#b3{
+    left: 200px;
+}
+#b4{
+    left: 0px; top:100px;
+}
+#b5{
+    left: 100px; top:100px;
+}
+#b6{
+    left: 200px; top:100px;
+}
+#b7{
+    left: 0px; top:200px;
+}
+#b8{
+    left: 100px; top:200px;
+}
+#b0{
+    left: 200px; top:200px;opacity: 0; z-index: -10;
+}
+button{
+    display: block; margin: 10px auto;
+}
