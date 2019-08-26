@@ -68,14 +68,15 @@ class Game extends React.Component{
                     return el;
                 }
             })
+            console.log(newList);
             this.setState({'b': newList});
 
             let count = this.state.stepCount;
              count=count+1;
             this.setState({'stepCount': count});
-            
-            document.getElementById("b" + id).style.left=this.state.position[target-1][0] + "px";
-            document.getElementById("b" + id).style.top=this.state.position[target-1][1] + "px";
+            // console.log(this.state.b);
+            // document.getElementById("b" + id).style.left=this.state.position[target-1][0] + "px";
+            // document.getElementById("b" + id).style.top=this.state.position[target-1][1] + "px";
         }
 
         for(let k=1; k<9; k++){
@@ -130,16 +131,14 @@ class Game extends React.Component{
             // console.log(random);
             this.setState({'b': random});
 
-            for(let i=0 ; i<9; i++) {
-                document.getElementById("b" + this.state.b[i]).style.left=this.state.position[i][0] + "px";
-                document.getElementById("b" + this.state.b[i]).style.top=this.state.position[i][1] + "px";
-            }
+            // for(let i=0 ; i<9; i++) {
+            //     document.getElementById("b" + this.state.b[i]).style.left=this.state.position[i][0] + "px";
+            //     document.getElementById("b" + this.state.b[i]).style.top=this.state.position[i][1] + "px";
+            // }
         }
     }
 
     render(){
-        
-        
         // this.setState({'isFinish': isFinish});
         if(this.state.isFinish === true && this.state.isStart === true){
             console.log('pass');
@@ -170,15 +169,15 @@ class Game extends React.Component{
             </form>
             <div className='stepCount'>Step count: <span id='stepCount'>{this.state.stepCount}</span></div>
             <div className='container'>
-                <div className='block' id='b1' onClick={()=>this.move(1)}>1</div>
-                <div className='block' id='b2' onClick={()=>this.move(2)}>2</div>
-                <div className='block' id='b3' onClick={()=>this.move(3)}>3</div>
-                <div className='block' id='b4' onClick={()=>this.move(4)}>4</div>
-                <div className='block' id='b5' onClick={()=>this.move(5)}>5</div>
-                <div className='block' id='b6' onClick={()=>this.move(6)}>6</div>
-                <div className='block' id='b7' onClick={()=>this.move(7)}>7</div>
-                <div className='block' id='b8' onClick={()=>this.move(8)}>8</div>
-                <div className='block' id='b0'></div>
+                <div className={'block b' + this.state.b[0]} id='0' onClick={()=>this.move(this.state.b[0])}>{this.state.b[0]}</div>
+                <div className={'block b' + this.state.b[1]} id='1' onClick={()=>this.move(this.state.b[1])}>{this.state.b[1]}</div>
+                <div className={'block b' + this.state.b[2]} id='2' onClick={()=>this.move(this.state.b[2])}>{this.state.b[2]}</div>
+                <div className={'block b' + this.state.b[3]} id='3' onClick={()=>this.move(this.state.b[3])}>{this.state.b[3]}</div>
+                <div className={'block b' + this.state.b[4]} id='4' onClick={()=>this.move(this.state.b[4])}>{this.state.b[4]}</div>
+                <div className={'block b' + this.state.b[5]} id='5' onClick={()=>this.move(this.state.b[5])}>{this.state.b[5]}</div>
+                <div className={'block b' + this.state.b[6]} id='6' onClick={()=>this.move(this.state.b[6])}>{this.state.b[6]}</div>
+                <div className={'block b' + this.state.b[7]} id='7' onClick={()=>this.move(this.state.b[7])}>{this.state.b[7]}</div>
+                <div className={'block b' + this.state.b[8]} id='8' onClick={()=>this.move(this.state.b[8])}>{this.state.b[8]}</div>
             </div>
             <button className='start' onClick={this.random}>Game Start !</button>
             </React.Fragment>

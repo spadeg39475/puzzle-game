@@ -36,41 +36,47 @@ a{
 }
 
 .container{
-    width: 300px;height: 300px;border-radius: 5px;display: inline-block;background-color: #ffe171;
-    box-shadow: 0 0 10px #ffe171; position: relative;
+    width: 300px;height: 300px;border-radius: 5px;background-color: #ffe171;margin: 0 auto;
+    box-shadow: 0 0 10px #ffe171; position: relative; display: flex; flex-wrap: wrap; 
 }
 .block{
     width:99px; height:99px; box-shadow: 1px 1px 2px #777;background-color: #20a6fa;
     color: white;text-align: center; font-size: 40px; line-height: 99px;
-    cursor: pointer; transition: 0.3s; position: absolute;
+    cursor: pointer; transition: 0.3s;
 }
-#b1{
+
+
+.b0{
+    opacity: 0; z-index: -10;
+} 
+
+/* .b1{
     left: 0px;
 }
-#b2{
+.b2{
     left: 100px;
 }
-#b3{
+.b3{
     left: 200px;
 }
-#b4{
+.b4{
     left: 0px; top:100px;
 }
-#b5{
+.b5{
     left: 100px; top:100px;
 }
-#b6{
+.b6{
     left: 200px; top:100px;
 }
-#b7{
+.b7{
     left: 0px; top:200px;
 }
-#b8{
+.b8{
     left: 100px; top:200px;
 }
-#b0{
+.b0{
     left: 200px; top:200px;opacity: 0; z-index: -10;
-}
+} */
 button{
     display: block; margin: 10px auto;
 }

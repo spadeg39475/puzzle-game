@@ -4,9 +4,9 @@ import { Link, NavLink } from 'react-router-dom';
 
 
 class Nav extends React.Component{
-    state ={
+    // state ={
        
-    }
+    // }
 
     
 
